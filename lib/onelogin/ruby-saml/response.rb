@@ -10,7 +10,7 @@ module OneLogin
       ASSERTION = "urn:oasis:names:tc:SAML:2.0:assertion"
       PROTOCOL  = "urn:oasis:names:tc:SAML:2.0:protocol"
       DSIG      = "http://www.w3.org/2000/09/xmldsig#"
-      XENC      = "http://www.w3.org/2001/04/xmlenc#" 
+      XENC      = "http://www.w3.org/2001/04/xmlenc#"
 
       # TODO: This should probably be ctor initialized too... WDYT?
       attr_accessor :settings
@@ -306,7 +306,8 @@ module OneLogin
           assertion_plaintext << cipher.final
           # We get some problematic noise in the plaintext after decrypting.
           # This quick regexp parse will grab only the assertion and discard the noise.
-          assertion_plaintext.match(/(.*<\/(saml2:|)Assertion>)/m)[0]
+          # assertion_plaintext.match(/(.*<\/(saml2:|)Assertion>)/m)[0]
+          assertion_plaintext.match(/(.*<\/(saml2*:|)Assertion>)/m)[0]
         elsif rsa
           rsa.private_decrypt(cipher_text)
         elsif oaep
