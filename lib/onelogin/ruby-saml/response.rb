@@ -306,7 +306,7 @@ module OneLogin
           assertion_plaintext << cipher.final
           # We get some problematic noise in the plaintext after decrypting.
           # This quick regexp parse will grab only the assertion and discard the noise.
-          assertion_plaintext.match(/(.*<\/(saml:|)Assertion>)/m)[0]
+          assertion_plaintext.match(/(.*<\/(saml2:|)Assertion>)/m)[0]
         elsif rsa
           rsa.private_decrypt(cipher_text)
         elsif oaep
